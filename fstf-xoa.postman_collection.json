@@ -1,0 +1,215 @@
+{
+  "info": {
+    "_postman_id": "c440de0f-8e98-4985-a7d5-c75ebb06daf6",
+    "name": "fstf-xoa",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code', () => {\r",
+              "  pm.expect(pm.response.code).to.be.match(/^200$/);\r",
+              "\r",
+              "  pm.collectionVariables.set('created_item_id', pm.response.json().data.id);\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"created name\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{SERVER_URL}}/items",
+          "host": ["{{SERVER_URL}}"],
+          "path": ["items"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Read all",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code', () => {\r",
+              "  pm.expect(pm.response.code).to.be.match(/^200$/);\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{SERVER_URL}}/items",
+          "host": ["{{SERVER_URL}}"],
+          "path": ["items"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Read",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code', () => {\r",
+              "  pm.expect(pm.response.code).to.be.match(/^(?:200|404)$/);\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{SERVER_URL}}/items/:id",
+          "host": ["{{SERVER_URL}}"],
+          "path": ["items", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "{{created_item_id}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code', () => {\r",
+              "  pm.expect(pm.response.code).to.be.match(/^(?:200|404)$/);\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"updated name\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{SERVER_URL}}/items/:id",
+          "host": ["{{SERVER_URL}}"],
+          "path": ["items", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "{{created_item_id}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code', () => {\r",
+              "  pm.expect(pm.response.code).to.be.match(/^(?:200|404)$/);\r",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{SERVER_URL}}/items/:id",
+          "host": ["{{SERVER_URL}}"],
+          "path": ["items", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "{{created_item_id}}"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "SERVER_HOST",
+      "value": "127.0.0.1",
+      "type": "default"
+    },
+    {
+      "key": "SERVER_PORT",
+      "value": "3000",
+      "type": "default"
+    },
+    {
+      "key": "SERVER_URL",
+      "value": "http://{{SERVER_HOST}}:{{SERVER_PORT}}",
+      "type": "default"
+    },
+    {
+      "key": "created_item_id",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}
